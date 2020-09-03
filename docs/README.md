@@ -10,19 +10,20 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
 
-The Product Highlights app provides blocks to render product highlights.
+The Product Highlights app provides blocks to display highlight badges on products according to the collection or promotion they are linked to.
 
 ![Product Highlights Example](https://user-images.githubusercontent.com/284515/92048986-7216e300-ed5f-11ea-86d4-abf535227ef1.png)
+*In the image above, the product has a `Top Seller` highlight.*
 
 ## Configuration
 
 ### Step 1 - Adding the Product Highlights app to your theme's dependencies
 
-In your theme's `manifest.json`, add the Product Highlights app as a dependency:
+In your theme's `manifest.json` file, add the Product Highlights app as a dependency:
 
-```json
-"dependencies": {
-  "vtex.product-highlights": "1.x"
+```diff
+ "dependencies": {
++  "vtex.product-highlights": "1.x"
 }
 ```
 
@@ -30,15 +31,15 @@ Now, you can use all the blocks exported by the `product-highlights` app. Check 
 
 | Block name                  | Description                                                                                                                                  |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `product-highlights`        | Iterates through the list of highlights to render `product-highlight-text` or `product-highlight-wrapper`.                                   |
-| `product-highlight-text`    | It renders a `span` with the name of a highlight with data-attributes and CSS handle so you can add customizations for every highlight.      |
-| `product-highlight-wrapper` | If you need to render other things along side with the name of a highlight, you may use this block, it will render a `div` and its children. |
+| `product-highlights`        | Parent block responsible for defining, according to its children blocks (`product-highlight-text` and `product-highlight-wrapper`) and props, how the Product Highlights component will be displayed.                                   |
+| `product-highlight-text`    | Renders a `span` HTML tag with the hightlight name. It also provides data attributes and CSS handles for style customizations. |
+| `product-highlight-wrapper` | If you need to render other blocks along side with the highlight name, you may use this block. It renders a `div` HTML tag and its children blocks (if any). |
 
 ### Step 2 - Adding the Product Highlights' blocks to your theme's templates
 
-Copy the example stated below and paste it in your theme's desired template, making the necessary changes according to your desire. Remember to add the `product-highlights` block to the template's block list if needed.
+According to your desire, copy one of the examples stated below and paste it in your theme's desired template, making the necessary changes. Remember to add the `product-highlights` block to the template's block list if needed.
 
-Simple example:
+- Simple example:
 
 ```json
 {
@@ -53,7 +54,7 @@ Simple example:
 }
 ```
 
-Example using `product-highlight-wrapper`:
+- Example using `product-highlight-wrapper`:
 
 ```jsonc
 {
@@ -74,7 +75,7 @@ Example using `product-highlight-wrapper`:
 }
 ```
 
-Example using the prop `filter` and the prop `type`:
+- Example using the prop `filter` and the prop `type`:
 
 ```jsonc
 {
@@ -97,14 +98,14 @@ Example using the prop `filter` and the prop `type`:
 }
 ```
 
-:warning: _Notice that the Product Highlights' blocks necessarily need a Product context in order to work properly since they handle product data. Therefore, when declaring them, be sure that they are in a theme template in which this context is available, such as the `store.product` or `product-summary.shelf`._
+:warning: *Notice that **the Product Highlights' blocks need a Product context in order to work properly since they handle product data**. Therefore, when declaring them, be sure that they are in a theme template or block in which this context is available, such as the `store.product` and `product-summary.shelf`.*
 
 ### `product-highlights` props
 
-| Prop name | Type     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Default value |
-| --------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
-| `type`    | `enum`   | There are three types of highlights: `collection`, `promotion`, and `teaser`. `collection` must be used in conjuction with the [Collection Highlight](https://help.vtex.com/en/tutorial/collection-highlight-control--1tGdb2ndjqy6yWsk2YwKMu?locale=en) feature. `promotion` must be used with a creation of a [promotion with highlights](https://help.vtex.com/en/tutorial/configuring-promotions-with-a-highlightflag--tutorials_2295?locale=en). `teaser` must be used with a creation of a [restricted promotion](https://help.vtex.com/en/tutorial/configuring-promotions-with-a-highlightflag--tutorials_2295?locale=en). | `collection`  |
-| `filter`  | `object` | Filters the highlights that should be displayed by the block.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | `undefined`   |
+| Prop name | Type     | Description                                                                 | Default value |
+| --------- | -------- | --------------------------------------------------------------------------- | ------------- |
+| `type`    | `enum`   | Desired type of product highlight to be displayed. Possible values are: `collection`, `promotion`, and `teaser`. `collection` highlights the product's collection therefore it must be be used in conjuction with the [Collection Highlight](https://help.vtex.com/en/tutorial/collection-highlight-control--1tGdb2ndjqy6yWsk2YwKMu?locale=en) feature. `promotion` should be used when the product is configured with a [promotion with highlights](https://help.vtex.com/en/tutorial/configuring-promotions-with-a-highlightflag--tutorials_2295?locale=en). `teaser`, in turn, must used when there is a [restricted promotion](). | `collection`  |
+| `filter`  | `object` | Defines the highlights that should and should not be displayed by the block. | `undefined`   |
 
 :warning: _Technically, `collection` maps to the property [`productClusters`](https://github.com/vtex-apps/search-graphql/blob/ea1d7e244e6b00b58e5aa4272fbb16987c483468/graphql/types/Product.graphql#L30); `promotion` to [`discountHighlights`](https://github.com/vtex-apps/search-graphql/blob/ea1d7e244e6b00b58e5aa4272fbb16987c483468/graphql/types/Product.graphql#L283); and `teaser` to [`teasers`](https://github.com/vtex-apps/search-graphql/blob/ea1d7e244e6b00b58e5aa4272fbb16987c483468/graphql/types/Product.graphql#L284)._
 
