@@ -1,21 +1,15 @@
 {
-  "version": "0.0.0",
-  "name": "CHANGE_ME",
+  "name": "product-highlights",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
     "lint": "eslint --ext js,jsx,ts,tsx .",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\"",
-    "lint:locales": "intl-equalizer",
     "test": "cd ./react && yarn test"
-  },
-  "intl-equalizer": {
-    "referenceLocale": "en",
-    "localeDirectory": "messages"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && intl-equalizer && intl-equalizer --fix"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
@@ -23,12 +17,14 @@
       "eslint --fix",
       "prettier --write"
     ],
+    "*.{json,graphql,gql}": [
+      "prettier --write"
+    ],
     "*.json": [
       "prettier --write"
     ]
   },
   "devDependencies": {
-    "@vtex/intl-equalizer": "^2.4.2",
     "@vtex/prettier-config": "^0.3.1",
     "eslint": "^7.4.0",
     "eslint-config-vtex": "^12.7.0",
@@ -37,5 +33,6 @@
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
     "typescript": "^3.9.6"
-  }
+  },
+  "version": "0.0.0"
 }

@@ -1,5 +1,5 @@
 {
-  "name": "CHANGE_ME",
+  "name": "product-highlights",
   "version": "0.0.0",
   "scripts": {
     "test": "vtex-test-tools test"
@@ -16,10 +16,14 @@
     "@types/jest": "^25.1.4",
     "@types/node": "^13.9.8",
     "@types/react": "^16.9.31",
-    "@vtex/test-tools": "^3.1.0",
+    "@vtex/test-tools": "^3.3.1",
     "@vtex/tsconfig": "^0.4.4",
     "apollo-cache-inmemory": "^1.6.5",
     "graphql": "^14.6.0",
-    "typescript": "^3.9.6"
+    "typescript": "3.8.3",
+    "vtex.css-handles": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.4/public/@types/vtex.css-handles",
+    "vtex.native-types": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.native-types@0.7.1/public/@types/vtex.native-types",
+    "vtex.product-context": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.product-context@0.8.1/public/@types/vtex.product-context",
+    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.112.0/public/@types/vtex.render-runtime"
   }
 }
