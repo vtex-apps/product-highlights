@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "product-highlights",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "title": "Product Highlights",
   "description": "",
   "builders": {
@@ -14,7 +14,9 @@
     "vtex.native-types": "0.x",
     "vtex.css-handles": "0.x"
   },
-  "registries": ["smartcheckout"],
+  "registries": [
+    "smartcheckout"
+  ],
   "policies": [],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
