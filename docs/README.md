@@ -1,91 +1,161 @@
-📢 Use this project, [contribute](https://github.com/{OrganizationName}/{AppName}) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
+📢 Use this project, [contribute](https://github.com/vtex-apps/product-highlights) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
 
-# APP NAME
+# Product Highlights
 
 <!-- DOCS-IGNORE:start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
 
-Under the app's name, you should explain the topic, giving a **brief description** of its **functionality** in a store when installed.
+The Product Highlights app provides blocks to display highlight badges on products according to the collection or promotion they are linked to.
 
-Next, **add media** (either an image of a GIF) with the rendered components, so that users can better understand how the app works in practice. 
+![Product Highlights Example](https://user-images.githubusercontent.com/284515/92048986-7216e300-ed5f-11ea-86d4-abf535227ef1.png)
+_In the image above, the product has a `Top Seller` highlight._
 
-![Media Placeholder](https://user-images.githubusercontent.com/52087100/71204177-42ca4f80-227e-11ea-89e6-e92e65370c69.png)
+## Configuration
 
-## Configuration 
+### Step 1 - Adding the Product Highlights app to your theme's dependencies
 
-In this section, you first must **add the primary instructions** that will allow users to use the app's blocks in their store, such as:
+In your theme's `manifest.json` file, add the Product Highlights app as a dependency:
 
-1. Adding the app as a theme dependency in the `manifest.json` file;
-2. Declaring the app's main block in a given theme template or inside another block from the theme.
+```diff
+ "dependencies": {
++  "vtex.product-highlights": "1.x"
+}
+```
 
-Remember to add a table with all blocks exported by the app and their descriptions. You can verify an example of it on the [Search Result documentation](https://vtex.io/docs/components/all/vtex.search-result@3.56.1/). 
+Now, you can use all the blocks exported by the `product-highlights` app. Check out the full list below:
 
-Next, add the **props table** containing your block's props. 
+| Block name                  | Description                                                                                                                                  |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `product-highlights`        | Parent block responsible for defining, according to its children blocks (`product-highlight-text` and `product-highlight-wrapper`) and props, how the Product Highlights component will be displayed.                                   |
+| `product-highlight-text`    | Renders a `span` HTML tag with the hightlight name. It also provides data attributes and CSS handles for style customizations. |
+| `product-highlight-wrapper` | If you need to render other blocks along side with the highlight name, you may use this block. It renders a `div` HTML tag and its children blocks (if any). |
 
-If the app exports more than one block, create several tables - one for each block. For example:
+### Step 2 - Adding the Product Highlights' blocks to your theme's templates
 
-### `block-1` props
+According to your desire, copy one of the examples stated below and paste it in your theme's desired template, making the necessary changes. Remember to add the `product-highlights` block to the template's block list if needed.
 
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
+- Simple example:
 
+```json
+{
+  "vtex.product-highlights@1.x:product-highlights": {
+    "children": ["product-highlight-text"]
+  },
+  "product-highlight-text": {
+    "props": {
+      "message": "{highlightName}"
+    }
+  }
+}
+```
 
-### `block-2` props
+- Example using `product-highlight-wrapper`:
 
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
+```jsonc
+{
+  "vtex.product-highlights@1.x:product-highlights": {
+    "children": ["product-highlights-wrapper"]
+  },
+  "product-highlights-wrapper": {
+    "children": [
+      "icon-star", // You can add anything inside a product-highlights-wrapper
+      "product-highlight-text"
+    ]
+  },
+  "product-highlight-text": {
+    "props": {
+      "message": "{highlightName}"
+    }
+  }
+}
+```
 
-Prop types are: 
+- Example using the prop `filter` and the prop `type`:
 
-- `string` 
-- `enum` 
-- `number` 
-- `boolean` 
-- `object` 
-- `array` 
+```jsonc
+{
+  "vtex.product-highlights@1.x:product-highlights": {
+    "props": {
+      "type": "teaser",
+      "filter": {
+        "type": "show",
+        "highlightNames": ["10% Boleto"]
+      }
+    },
+    "children": ["product-highlight-text"]
+  },
+  "product-highlight-text": {
+    "props": {
+      "message": "{highlightName}",
+      "blockClass": "boleto"
+    }
+  }
+}
+```
 
-When documenting a prop whose type is `object` or `array` another prop table will be needed. You can create it following the example below:
+:warning: *Notice that **the Product Highlights' blocks need a Product context in order to work properly since they handle product data**. Therefore, when declaring them, be sure that they are in a theme template or block in which this context is available, such as the `store.product` and `product-summary.shelf`.*
 
-- `propName` object:
+### `product-highlights` props
 
-| Prop name    | Type            | Description    | Default value                                                                                                                               |
-| ------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | 
-| `XXXXX`      | `XXXXXX`       | XXXXXXXX         | `XXXXXX`        |
+| Prop name | Type     | Description                                                                 | Default value |
+| --------- | -------- | --------------------------------------------------------------------------- | ------------- |
+| `type`    | `enum`   | Desired type of product highlight to be displayed. Possible values are: `collection`, `promotion`, and `teaser`. `collection` highlights the product's collection therefore it must be be used in conjuction with the [Collection Highlight](https://help.vtex.com/en/tutorial/collection-highlight-control--1tGdb2ndjqy6yWsk2YwKMu?locale=en) feature. `promotion` and `teaser` should be used when the product is configured with a [promotion with highlights](https://help.vtex.com/en/tutorial/configuring-promotions-with-a-highlightflag--tutorials_2295?locale=en), but notice the following: `teaser` must only be used when the promotion presents restrictions. `promotion`, in turn, when it does not.| `collection`  |
+| `filter`  | `object` | Defines the highlights that should and should not be displayed by the block. | `undefined`   |
 
+:warning: _Technically, `collection` maps to the property [`productClusters`](https://github.com/vtex-apps/search-graphql/blob/ea1d7e244e6b00b58e5aa4272fbb16987c483468/graphql/types/Product.graphql#L30); `promotion` to [`discountHighlights`](https://github.com/vtex-apps/search-graphql/blob/ea1d7e244e6b00b58e5aa4272fbb16987c483468/graphql/types/Product.graphql#L283); and `teaser` to [`teasers`](https://github.com/vtex-apps/search-graphql/blob/ea1d7e244e6b00b58e5aa4272fbb16987c483468/graphql/types/Product.graphql#L284)._
 
-Remember to also use this Configuration section to  **showcase any necessary disclaimer** related to the app and its blocks, such as the different behavior it may display during its configuration. 
+- **`filter` object:**
 
-## Modus Operandi *(not mandatory)*
+| Prop name        | Type       | Description                                                                                                                                                                                                                                                                 | Default value |
+| ---------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `highlightNames` | `[string]` | Array of highlight names to be hidden or shown (according to what is defined in the `type` property) by the `product-highlights` block.                                                                                                                                     | `undefined`   |
+| `type`           | `enum`     | Whether the highlights names passed to the `highlightNames` prop should be displayed or hidden on the UI. Possible values are: `hide` (hides highlights declared in the `highlightNames` prop) or `show` (only shows the highlights declared in the `highlightNames` prop). | `undefined`   |
 
-There are scenarios in which an app can behave differently in a store, according to how it was added to the catalog, for example. It's crucial to go through these **behavioral changes** in this section, allowing users to fully understand the **practical application** of the app in their store.
+#### `product-highlight-text` props
 
-If you feel compelled to give further details about the app, such as it's **relationship with the VTEX admin**, don't hesitate to use this section. 
+| Prop name    | Type       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                       | Default value |
+| ------------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `blockClass` | `string`   | Block ID of your choosing to be used in [CSS customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization#using-the-blockclass-property).                                                                                                                                                                                                                                                                          | `undefined`   |
+| `message`    | `string`   | Defines the block's default text message to be rendered on the UI. You can also define which text message a block will render on the UI using the admin's Site Editor and the `markers` prop.                                                                                                                                                                                                                                                     | `undefined`   |
+| `markers`    | `[string]` | IDs of your choosing to identify the block's rendered text message and customize it using the admin's Site Editor. Learn how to use them accessing the documentation on [Using the Markers prop to customize a block's message](https://vtex.io/docs/recipes/style/using-the-markers-prop-to-customize-a-blocks-message). Notice the following: a block's message can also be customized in the Store Theme source code using the `message` prop. | `[]`          |
+
+#### `product-highlight-wrapper` props
+
+| Prop name    | Type     | Description                                                                                                                                                              | Default value |
+| ------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------- |
+| `blockClass` | `string` | Block ID of your choosing to be used in [CSS customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization#using-the-blockclass-property). | `undefined`   |
+
+### Step 3 - Editing the `product-highlight-text`'s messages
+
+The `product-highlight-text` uses the [ICU Message Format](https://format-message.github.io/icu-message-format-for-translators/), making it possible to fully edit the block's rendered text messages.
+
+When using the `message` prop, you won't need to perform any advanced configurations: declare the prop directly in your Store Theme app, passing to it the desired text value to be rendered with the block.
+
+The `markers` prop, in turn, requires you to perform an extra configuration in the admin's Site Editor to properly work. When using this prop, do not forget to check out the block's message variables (shown in the table below) and the [Using the Markers prop to customize a block's message](https://vtex.io/docs/recipes/style/using-the-markers-prop-to-customize-a-blocks-message) documentation.
+
+| Message variable | Type     | Description     |
+| ---------------- | -------- | --------------- |
+| `highlightName`  | `string` | Highlight name. |
 
 ## Customization
 
-The first thing that should be present in this section is the sentence below, showing users the recipe pertaining to CSS customization in apps:
+To apply CSS customization in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).
 
-`In order to apply CSS customizations in this and other blocks, follow the instructions given in the recipe on [Using CSS Handles for store customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization).`
+| CSS Handles               |
+| ------------------------- |
+| `productHighlightText`    |
+| `productHighlightWrapper` |
 
-Thereafter, you should add a single column table with the available CSS handles for the app, like the one below. Note that the Handles must be ordered alphabetically.
-
-| CSS Handles |
-| ----------- | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` | 
-| `XXXXX` |
-
-
-If there are none, add the following sentence instead:
-
-`No CSS Handles are available yet for the app customization.`
+| Data Attributes       |
+| --------------------- |
+| `data-highlight-name` |
+| `data-highlight-id`   |
+| `data-highlight-type` |
 
 <!-- DOCS-IGNORE:start -->
 
@@ -98,17 +168,9 @@ Thanks goes to these wonderful people:
 <!-- markdownlint-disable -->
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
 
 <!-- DOCS-IGNORE:end -->
-
----- 
-
-Check out some documentation models that are already live: 
-- [Breadcrumb](https://github.com/vtex-apps/breadcrumb)
-- [Image](https://vtex.io/docs/components/general/vtex.store-components/image)
-- [Condition Layout](https://vtex.io/docs/components/all/vtex.condition-layout@1.1.6/)
-- [Add To Cart Button](https://vtex.io/docs/components/content-blocks/vtex.add-to-cart-button@0.9.0/)
-- [Store Form](https://vtex.io/docs/components/all/vtex.store-form@0.3.4/)

@@ -1,0 +1,13 @@
+{
+  "product-highlights": {
+    "component": "ProductHighlights",
+    "composition": "children"
+  },
+  "product-highlight-wrapper": {
+    "component": "ProductHighlightWrapper",
+    "composition": "children"
+  },
+  "product-highlight-text": {
+    "component": "ProductHighlightText"
+  }
+}

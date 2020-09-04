@@ -7,3 +7,4 @@ README.md
 react/**/__tests__/**
 react/**/__mocks__/**
 react/testUtils/**
+react/**.test.tsx
