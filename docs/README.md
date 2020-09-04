@@ -13,7 +13,7 @@
 The Product Highlights app provides blocks to display highlight badges on products according to the collection or promotion they are linked to.
 
 ![Product Highlights Example](https://user-images.githubusercontent.com/284515/92048986-7216e300-ed5f-11ea-86d4-abf535227ef1.png)
-*In the image above, the product has a `Top Seller` highlight.*
+_In the image above, the product has a `Top Seller` highlight._
 
 ## Configuration
 
