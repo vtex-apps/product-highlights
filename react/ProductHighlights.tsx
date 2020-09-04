@@ -8,7 +8,7 @@ type HighlightType = 'collection' | 'promotion' | 'teaser'
 interface ProductHighlightsProps {
   filter?: Filter
   type?: HighlightType
-  children: ReactNode
+  children: NonNullable<ReactNode>
 }
 
 interface Filter {
