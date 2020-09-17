@@ -100,7 +100,7 @@ According to your desire, copy one of the examples stated below and paste it in 
 
 :warning: *Notice that **the Product Highlights' blocks need a Product context in order to work properly since they handle product data**. Therefore, when declaring them, be sure that they are in a theme template or block in which this context is available, such as the `store.product` and `product-summary.shelf`.*
 
-### `product-highlights` props
+#### `product-highlights` props
 
 | Prop name | Type     | Description                                                                 | Default value |
 | --------- | -------- | --------------------------------------------------------------------------- | ------------- |
