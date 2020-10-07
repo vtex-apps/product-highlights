@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Use `clusterHighlights` instead of `productClusters` for type `collection`.
+
 ## [1.0.0] - 2020-09-04
 
 ### Added
+
 - Intial release.
