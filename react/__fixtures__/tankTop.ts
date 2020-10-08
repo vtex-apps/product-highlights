@@ -233,7 +233,7 @@ export default {
     },
   ],
   skuSpecifications: null,
-  productClusters: [
+  clusterHighlights: [
     {
       id: '1182',
       name: 'Top Sellers',

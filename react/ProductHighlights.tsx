@@ -1,5 +1,5 @@
 import React, { FC, useContext, ReactNode, useMemo } from 'react'
-import { useProduct } from 'vtex.product-context'
+import { useProduct, ProductTypes } from 'vtex.product-context'
 
 import { getSeller } from './modules/seller'
 
@@ -41,11 +41,13 @@ const ProductHighlights: FC<ProductHighlightsProps> = ({
   type = 'collection',
   children,
 }) => {
-  const { product, selectedItem } = useProduct()
+  const { product, selectedItem } = useProduct() ?? {}
   const selectedSku = selectedItem ?? product?.items[0]
-  const seller = selectedSku ? getSeller(selectedSku) : null
+  const seller: ProductTypes.Seller | null = selectedSku
+    ? getSeller(selectedSku)
+    : null
 
-  const productClusters = product?.productClusters ?? []
+  const clusterHighlights = product?.clusterHighlights ?? []
   const discountHighlights = seller?.commertialOffer.discountHighlights ?? []
   const teasers = seller?.commertialOffer.teasers ?? []
 
@@ -53,7 +55,7 @@ const ProductHighlights: FC<ProductHighlightsProps> = ({
     const filterHighlight = createFilterHighlight(filter)
 
     if (type === 'collection') {
-      return productClusters.filter(filterHighlight)
+      return clusterHighlights.filter(filterHighlight)
     }
 
     if (type === 'promotion') {
@@ -65,7 +67,7 @@ const ProductHighlights: FC<ProductHighlightsProps> = ({
     }
 
     return []
-  }, [filter, type, teasers, productClusters, discountHighlights])
+  }, [filter, type, teasers, clusterHighlights, discountHighlights])
 
   if (!product) {
     return null
