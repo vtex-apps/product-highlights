@@ -23,7 +23,7 @@ In your theme's `manifest.json` file, add the Product Highlights app as a depend
 
 ```diff
  "dependencies": {
-+  "vtex.product-highlights": "1.x"
++  "vtex.product-highlights": "2.x"
 }
 ```
 
@@ -43,7 +43,7 @@ According to your desire, copy one of the examples stated below and paste it in 
 
 ```json
 {
-  "vtex.product-highlights@1.x:product-highlights": {
+  "vtex.product-highlights@2.x:product-highlights": {
     "children": ["product-highlight-text"]
   },
   "product-highlight-text": {
@@ -58,7 +58,7 @@ According to your desire, copy one of the examples stated below and paste it in 
 
 ```jsonc
 {
-  "vtex.product-highlights@1.x:product-highlights": {
+  "vtex.product-highlights@2.x:product-highlights": {
     "children": ["product-highlights-wrapper"]
   },
   "product-highlights-wrapper": {
@@ -79,7 +79,7 @@ According to your desire, copy one of the examples stated below and paste it in 
 
 ```jsonc
 {
-  "vtex.product-highlights@1.x:product-highlights": {
+  "vtex.product-highlights@2.x:product-highlights": {
     "props": {
       "type": "teaser",
       "filter": {
