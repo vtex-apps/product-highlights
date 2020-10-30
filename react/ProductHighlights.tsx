@@ -42,14 +42,14 @@ const ProductHighlights: FC<ProductHighlightsProps> = ({
   children,
 }) => {
   const { product, selectedItem } = useProduct() ?? {}
-  const selectedSku = selectedItem ?? product?.items[0]
+  const selectedSku = selectedItem ?? product?.items?.[0]
   const seller: ProductTypes.Seller | null = selectedSku
     ? getSeller(selectedSku)
     : null
 
   const clusterHighlights = product?.clusterHighlights ?? []
-  const discountHighlights = seller?.commertialOffer.discountHighlights ?? []
-  const teasers = seller?.commertialOffer.teasers ?? []
+  const discountHighlights = seller?.commertialOffer?.discountHighlights ?? []
+  const teasers = seller?.commertialOffer?.teasers ?? []
 
   const highlights = useMemo(() => {
     const filterHighlight = createFilterHighlight(filter)
