@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.2] - 2020-10-30
+
 ### Fixed
 
 - Reading an index of undefined would result in a `TypeError` in some cases.
