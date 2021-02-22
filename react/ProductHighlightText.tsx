@@ -1,6 +1,7 @@
 import React, { FC, useMemo, ReactNode } from 'react'
 import { IOMessageWithMarkers } from 'vtex.native-types'
 import { useCssHandles } from 'vtex.css-handles'
+import { Link } from 'vtex.render-runtime'
 
 import { useHighlight } from './ProductHighlights'
 
@@ -8,15 +9,20 @@ interface Props {
   message: string
   markers?: string[]
   blockClass?: string
+  link?: LinkValues
 }
 
 interface MessageValues {
   highlightName: ReactNode
 }
 
+interface LinkValues {
+  href?: string
+}
+
 const CSS_HANDLES = ['productHighlightText'] as const
 
-const ProductHighlightText: FC<Props> = ({ message = '', markers = [] }) => {
+const ProductHighlightText: FC<Props> = ({ message = '', markers = [], link }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const value = useHighlight()
 
@@ -37,7 +43,20 @@ const ProductHighlightText: FC<Props> = ({ message = '', markers = [] }) => {
         data-highlight-type={value.type}
         className={handles.productHighlightText}
       >
-        {value.highlight.name}
+        {
+          link ? (
+            <Link
+              to={link.href + `${value.highlight.id}`}
+            >
+              {value.highlight.name}
+            </Link>
+          ) : (
+            <>
+              {value.highlight.name}
+            </>
+          )
+        }
+        
       </span>
     )
 
