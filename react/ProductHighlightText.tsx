@@ -35,7 +35,18 @@ const ProductHighlightText: FC<Props> = ({ message = '', markers = [], link }) =
       return result
     }
 
-    result.highlightName = (
+    result.highlightName =  link ? (
+      <Link
+        to={link.href + `${value.highlight.id}`}
+        key="highlightLink"
+        data-highlight-name={value.highlight.name}
+        data-highlight-id={value.highlight.id}
+        data-highlight-type={value.type}
+        className={handles.productHighlightText}
+      >
+        {value.highlight.name}
+      </Link>
+    ) : (
       <span
         key="highlightName"
         data-highlight-name={value.highlight.name}
@@ -43,20 +54,7 @@ const ProductHighlightText: FC<Props> = ({ message = '', markers = [], link }) =
         data-highlight-type={value.type}
         className={handles.productHighlightText}
       >
-        {
-          link ? (
-            <Link
-              to={link.href + `${value.highlight.id}`}
-            >
-              {value.highlight.name}
-            </Link>
-          ) : (
-            <>
-              {value.highlight.name}
-            </>
-          )
-        }
-        
+        {value.highlight.name}
       </span>
     )
 
