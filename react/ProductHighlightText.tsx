@@ -9,15 +9,11 @@ interface Props {
   message: string
   markers?: string[]
   blockClass?: string
-  link?: LinkValues
+  link?: string
 }
 
 interface MessageValues {
   highlightName: ReactNode
-}
-
-interface LinkValues {
-  href?: string
 }
 
 const CSS_HANDLES = ['productHighlightText'] as const
@@ -37,7 +33,7 @@ const ProductHighlightText: FC<Props> = ({ message = '', markers = [], link }) =
 
     result.highlightName =  link ? (
       <Link
-        to={link.href + `${value.highlight.id}`}
+        to={link + `${value.highlight.id}`}
         key="highlightLink"
         data-highlight-name={value.highlight.name}
         data-highlight-id={value.highlight.id}
@@ -59,7 +55,7 @@ const ProductHighlightText: FC<Props> = ({ message = '', markers = [], link }) =
     )
 
     return result
-  }, [value, handles.productHighlightText])
+  }, [value, handles.productHighlightText, link])
 
   if (!value || !message) {
     return null
