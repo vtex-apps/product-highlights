@@ -18,7 +18,7 @@ interface MessageValues {
 
 const CSS_HANDLES = ['productHighlightText'] as const
 
-const ProductHighlightText: FC<Props> = ({ message = '', markers = [], link }) => {
+const ProductHighlightText: FC<Props> = ({ message = '', markers = [], link = '' }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const value = useHighlight()
 
@@ -33,7 +33,7 @@ const ProductHighlightText: FC<Props> = ({ message = '', markers = [], link }) =
 
     result.highlightName =  link ? (
       <Link
-        to={link + `${value.highlight.id}`}
+        to={`${link + value.highlight.id}`}
         key="highlightLink"
         data-highlight-name={value.highlight.name}
         data-highlight-id={value.highlight.id}
