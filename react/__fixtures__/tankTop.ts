@@ -6,7 +6,7 @@ export default {
   productReference: 'xpto123',
   linkText: 'tank-top',
   brand: 'AOC',
-  brandId: 2000012,
+  brandId: '2000012',
   link: 'https://portal.vtexcommercestable.com.br/tank-top/p',
   categories: [
     '/Apparel & Accessories/Clothing/Tops/',
