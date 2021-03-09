@@ -1,6 +1,7 @@
 import React, { FC, useMemo, ReactNode } from 'react'
-import { IOMessageWithMarkers } from 'vtex.native-types'
+import { IOMessageWithMarkers, formatIOMessage } from 'vtex.native-types'
 import { useCssHandles } from 'vtex.css-handles'
+import { useIntl } from 'react-intl'
 
 import { useHighlight } from './ProductHighlights'
 
@@ -24,6 +25,7 @@ const ProductHighlightText: FC<Props> = ({
 }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const value = useHighlight()
+  const intl = useIntl()
 
   const values = useMemo(() => {
     const result: MessageValues = {
@@ -34,31 +36,46 @@ const ProductHighlightText: FC<Props> = ({
       return result
     }
 
-    result.highlightName = link ? (
-      <a
-        href={`${link}${value.highlight.id}`}
-        key="highlightLink"
-        data-highlight-name={value.highlight.name}
-        data-highlight-id={value.highlight.id}
-        data-highlight-type={value.type}
-        className={handles.productHighlightText}
-      >
-        {value.highlight.name}
-      </a>
-    ) : (
-      <span
-        key="highlightName"
-        data-highlight-name={value.highlight.name}
-        data-highlight-id={value.highlight.id}
-        data-highlight-type={value.type}
-        className={handles.productHighlightText}
-      >
-        {value.highlight.name}
-      </span>
-    )
+    if (link) {
+      const href = formatIOMessage(
+        {
+          intl,
+          id: link,
+        },
+        {
+          highlightId: value.highlight.id ?? '',
+          highlightName: value.highlight.name,
+        }
+      ) as string
+
+      result.highlightName = (
+        <a
+          href={href}
+          key="highlightLink"
+          data-highlight-name={value.highlight.name}
+          data-highlight-id={value.highlight.id}
+          data-highlight-type={value.type}
+          className={handles.productHighlightText}
+        >
+          {value.highlight.name}
+        </a>
+      )
+    } else {
+      result.highlightName = (
+        <span
+          key="highlightName"
+          data-highlight-name={value.highlight.name}
+          data-highlight-id={value.highlight.id}
+          data-highlight-type={value.type}
+          className={handles.productHighlightText}
+        >
+          {value.highlight.name}
+        </span>
+      )
+    }
 
     return result
-  }, [value, handles.productHighlightText, link])
+  }, [value, link, intl, handles.productHighlightText])
 
   if (!value || !message) {
     return null
