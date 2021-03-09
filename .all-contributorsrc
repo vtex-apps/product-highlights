@@ -1,5 +1,5 @@
 {
-  "projectName": "react-app-template",
+  "projectName": "product-highlights",
   "projectOwner": "vtex-apps",
   "repoType": "github",
   "repoHost": "https://github.com",
@@ -9,6 +9,17 @@
   "imageSize": 100,
   "commit": true,
   "commitConvention": "none",
-  "contributors": [],
-  "contributorsPerLine": 7
+  "contributors": [
+    {
+      "login": "proudynyu",
+      "name": "proudynyu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/57180581?v=4",
+      "profile": "https://www.linkedin.com/in/igor-becker-73b7901a3/",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true
 }
