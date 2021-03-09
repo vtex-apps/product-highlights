@@ -1,12 +1,12 @@
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
-import { useProduct, ProductContext } from 'vtex.product-context'
+import { useProduct } from 'vtex.product-context'
 
 import ProductHighlights from './ProductHighlights'
 import ProductHighlightText from './ProductHighlightText'
 import tankTop from './__fixtures__/tankTop'
 
-const mockUseProduct = useProduct as jest.Mock<ProductContext>
+const mockUseProduct = useProduct as jest.Mock
 
 mockUseProduct.mockImplementation(() => ({ product: tankTop }))
 
@@ -29,6 +29,23 @@ test('ProductHighlightText should render data-attributes and CSS handles', () =>
   expect(summer).toHaveAttribute('data-highlight-name', 'Summer')
   expect(summer).toHaveAttribute('data-highlight-type', 'collection')
   expect(summer).toHaveClass('productHighlightText')
+})
+
+test('ProductHighlightText should render link if prop is passed', () => {
+  const { getByText } = render(
+    <ProductHighlights>
+      <ProductHighlightText
+        message="{highlightName}"
+        link="/collection/{highlightName}/{highlightId}"
+      />
+    </ProductHighlights>
+  )
+
+  const topSellers = getByText('Top Sellers')
+  const summer = getByText('Summer')
+
+  expect(topSellers).toHaveAttribute('href', '/collection/Top Sellers/1182')
+  expect(summer).toHaveAttribute('href', '/collection/Summer/1183')
 })
 
 test("ProductHighlightText should render nothing if there's no context", () => {

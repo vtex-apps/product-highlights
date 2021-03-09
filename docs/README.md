@@ -54,6 +54,22 @@ According to your desire, copy one of the examples stated below and paste it in 
 }
 ```
 
+- Example using the `link` prop:
+
+```json
+{
+  "vtex.product-highlights@2.x:product-highlights": {
+    "children": ["product-highlight-text"]
+  },
+  "product-highlight-text": {
+    "props": {
+      "message": "{highlightName}",
+      "link": "/collection/{highlightId}"
+    }
+  }
+}
+```
+
 - Example using `product-highlight-wrapper`:
 
 ```jsonc
@@ -123,6 +139,7 @@ According to your desire, copy one of the examples stated below and paste it in 
 | `blockClass` | `string`   | Block ID of your choosing to be used in [CSS customization](https://vtex.io/docs/recipes/style/using-css-handles-for-store-customization#using-the-blockclass-property).                                                                                                                                                                                                                                                                          | `undefined`   |
 | `message`    | `string`   | Defines the block's default text message to be rendered on the UI. You can also define which text message a block will render on the UI using the admin's Site Editor and the `markers` prop.                                                                                                                                                                                                                                                     | `undefined`   |
 | `markers`    | `[string]` | IDs of your choosing to identify the block's rendered text message and customize it using the admin's Site Editor. Learn how to use them accessing the documentation on [Using the Markers prop to customize a block's message](https://vtex.io/docs/recipes/style/using-the-markers-prop-to-customize-a-blocks-message). Notice the following: a block's message can also be customized in the Store Theme source code using the `message` prop. | `[]`          |
+| `link`       | `string`   | If set, creates a link to the string passed. You can interpolate the variables: `highlightText` and `highlightId`. Example: `/collection/{highlightId}`.  | `undefined`   |
 
 #### `product-highlight-wrapper` props
 
