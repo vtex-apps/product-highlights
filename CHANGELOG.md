@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2021-03-09
+
 ### Added
 - New prop `link` to allow link creation in `product-highlight-text`.
 
