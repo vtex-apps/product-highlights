@@ -54,7 +54,7 @@ According to your desire, copy one of the examples stated below and paste it in 
 }
 ```
 
-- Example using the `link` prop: 
+- Example using the `link` prop:
 
 ```json
 {
@@ -64,7 +64,7 @@ According to your desire, copy one of the examples stated below and paste it in 
   "product-highlight-text": {
     "props": {
       "message": "{highlightName}",
-      "link": "www.yoursite.com/search?fq=H:" // The clusterHighlight ID will be inserted at the end of the string
+      "link": "/collection/{highlightId}"
     }
   }
 }
