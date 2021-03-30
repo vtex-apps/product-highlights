@@ -1,13 +1,11 @@
 import { ProductTypes } from 'vtex.product-context'
 
 export function getSeller(item: ProductTypes.Item) {
-  const availableSeller = item?.sellers?.find((seller) => {
-    return seller?.commertialOffer?.AvailableQuantity > 0
-  })
+  const defaultSeller = item?.sellers?.find((seller) => seller.sellerDefault)
 
-  if (!availableSeller) {
+  if (!defaultSeller) {
     return item?.sellers?.[0]
   }
 
-  return availableSeller
+  return defaultSeller
 }
