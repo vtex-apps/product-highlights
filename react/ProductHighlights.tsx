@@ -125,7 +125,7 @@ ProductHighlights.defaultProps = {
 }
 
 ProductHighlights.schema = {
-  title: 'Teste',
+  title: 'Product Highlights',
   type: 'object',
   properties: {
     filter: {
@@ -135,7 +135,11 @@ ProductHighlights.schema = {
         type: {
           title: 'type',
           type: 'string',
-          default: "show"
+          enum: ['hide', 'show'],
+          enumNames: [
+            'hide',
+            'show'
+          ],
         },
         highlightNames: {
           title: 'Highlight Names',
@@ -145,9 +149,14 @@ ProductHighlights.schema = {
       }
     },
     type: {
-      title: 'type',
+      title: 'Query Type',
       type: 'string',
-      default: 'collection'
+      enum: ['collection', 'promotion', 'teaser'],
+      enumNames: [
+        'collection',
+        'promotion',
+        'teaser'
+      ],
     },
   }
 }
