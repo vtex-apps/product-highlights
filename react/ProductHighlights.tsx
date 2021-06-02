@@ -143,8 +143,14 @@ ProductHighlights.schema = {
         },
         highlightNames: {
           title: 'Highlight Names',
-          type: 'object',
-          default: []
+          type: 'array',
+          minItems: 0,
+          maxItems: 5,
+          items: {
+            title: 'Highlight name',
+            type: 'string',
+            default: ""
+          }
         },
       }
     },
