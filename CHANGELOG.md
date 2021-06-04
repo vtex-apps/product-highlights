@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Add site-editor functionality to `product-highlights` component.
+
 ## [2.1.1] - 2021-03-30
 ### Fixed
 - Use `sellerDefault` as default seller selection.
