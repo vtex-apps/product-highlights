@@ -1,6 +1,7 @@
-import React, { FC } from 'react'
+import type { FC } from 'react'
+import React from 'react'
 import { FormattedMessage } from 'react-intl'
-import { formatIOMessage as _formatIOMessage } from 'vtex.native-types'
+import type { formatIOMessage as _formatIOMessage } from 'vtex.native-types'
 
 interface Props {
   message: string

@@ -1,6 +1,8 @@
-import React, { FC, useContext, ReactNode, useMemo } from 'react'
+import type { FC, ReactNode } from 'react'
+import React, { useContext, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { useProduct, ProductTypes } from 'vtex.product-context'
+import type { ProductTypes } from 'vtex.product-context'
+import { useProduct } from 'vtex.product-context'
 
 import { getSeller } from './modules/seller'
 
@@ -26,7 +28,43 @@ function createFilterHighlight(filter: Filter) {
   }
 }
 
-const ProductHighlights = (props: { filter: Filter; type: HighlightType; children: NonNullable<ReactNode> }) => {
+interface Highlight {
+  id?: string
+  name: string
+}
+
+const ProductHighlightContext =
+  React.createContext<ProductHighlightContextProviderProps | undefined>(
+    undefined
+  )
+
+interface ProductHighlightContextProviderProps {
+  highlight: Highlight
+  type: HighlightType
+}
+
+const ProductHighlightContextProvider: FC<ProductHighlightContextProviderProps> =
+  ({ highlight, type, children }) => {
+    const contextValue = useMemo(
+      () => ({
+        highlight,
+        type,
+      }),
+      [highlight, type]
+    )
+
+    return (
+      <ProductHighlightContext.Provider value={contextValue}>
+        {children}
+      </ProductHighlightContext.Provider>
+    )
+  }
+
+const ProductHighlights = (props: {
+  filter: Filter
+  type: HighlightType
+  children: NonNullable<ReactNode>
+}) => {
   const { product, selectedItem } = useProduct() ?? {}
   const selectedSku = selectedItem ?? product?.items?.[0]
   const seller: ProductTypes.Seller | null = selectedSku
@@ -74,43 +112,9 @@ const ProductHighlights = (props: { filter: Filter; type: HighlightType; childre
   )
 }
 
-interface Highlight {
-  id?: string
-  name: string
-}
-
-const ProductHighlightContext = React.createContext<
-  ProductHighlightContextProviderProps | undefined
->(undefined)
-
-interface ProductHighlightContextProviderProps {
-  highlight: Highlight
-  type: HighlightType
-}
-
-const ProductHighlightContextProvider: FC<ProductHighlightContextProviderProps> = ({
-  highlight,
-  type,
-  children,
-}) => {
-  const contextValue = useMemo(
-    () => ({
-      highlight,
-      type,
-    }),
-    [highlight, type]
-  )
-
-  return (
-    <ProductHighlightContext.Provider value={contextValue}>
-      {children}
-    </ProductHighlightContext.Provider>
-  )
-}
-
 ProductHighlights.propTypes = {
   filter: PropTypes.object,
-  type: PropTypes.string
+  type: PropTypes.string,
 }
 
 ProductHighlights.defaultProps = {
@@ -133,10 +137,7 @@ ProductHighlights.schema = {
           title: 'type',
           type: 'string',
           enum: ['hide', 'show'],
-          enumNames: [
-            'hide',
-            'show'
-          ],
+          enumNames: ['hide', 'show'],
         },
         highlightNames: {
           title: 'Highlight Names',
@@ -146,22 +147,18 @@ ProductHighlights.schema = {
           items: {
             title: 'Highlight name',
             type: 'string',
-            default: ""
-          }
+            default: '',
+          },
         },
-      }
+      },
     },
     type: {
       title: 'Query Type',
       type: 'string',
       enum: ['collection', 'promotion', 'teaser'],
-      enumNames: [
-        'collection',
-        'promotion',
-        'teaser'
-      ],
+      enumNames: ['collection', 'promotion', 'teaser'],
     },
-  }
+  },
 }
 
 export const useHighlight = () => {
