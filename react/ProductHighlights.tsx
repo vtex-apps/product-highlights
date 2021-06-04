@@ -37,9 +37,6 @@ const ProductHighlights = (props: { filter: Filter; type: HighlightType; childre
   const discountHighlights = seller?.commertialOffer?.discountHighlights ?? []
   const teasers = seller?.commertialOffer?.teasers ?? []
 
-  console.log("Props", props)
-  console.log("Cluster Highlights", clusterHighlights)
-
   const highlights = useMemo(() => {
     const filterHighlight = createFilterHighlight(props.filter)
 

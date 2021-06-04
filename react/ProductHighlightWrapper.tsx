@@ -14,9 +14,6 @@ const ProductHighlightWrapper: FC<Props> = ({ children }) => {
   const handles = useCssHandles(CSS_HANDLES)
   const value = useHighlight()
 
-  console.log("Valor", value)
-  console.log("Children", children)
-
   if (!value) {
     return null
   }
