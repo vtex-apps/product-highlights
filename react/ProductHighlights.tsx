@@ -1,6 +1,5 @@
-import type { FC, ReactNode } from 'react'
+import type { FC, ReactNode, PropsWithChildren } from 'react'
 import React, { useContext, useMemo } from 'react'
-import PropTypes from 'prop-types'
 import type { ProductTypes } from 'vtex.product-context'
 import { useProduct } from 'vtex.product-context'
 
@@ -11,6 +10,27 @@ type HighlightType = 'collection' | 'promotion' | 'teaser'
 interface Filter {
   type: 'hide' | 'show'
   highlightNames: string[]
+}
+
+interface ProductHighlightsProps {
+  filter?: Filter
+  type?: HighlightType
+  children: NonNullable<ReactNode>
+}
+
+const defaultFilter: Filter = {
+  type: 'hide',
+  highlightNames: [],
+}
+
+interface Highlight {
+  id?: string
+  name: string
+}
+
+interface ProductHighlightContextProviderProps {
+  highlight: Highlight
+  type: HighlightType
 }
 
 function createFilterHighlight(filter: Filter) {
@@ -28,20 +48,10 @@ function createFilterHighlight(filter: Filter) {
   }
 }
 
-interface Highlight {
-  id?: string
-  name: string
-}
-
 const ProductHighlightContext =
   React.createContext<ProductHighlightContextProviderProps | undefined>(
     undefined
   )
-
-interface ProductHighlightContextProviderProps {
-  highlight: Highlight
-  type: HighlightType
-}
 
 const ProductHighlightContextProvider: FC<ProductHighlightContextProviderProps> =
   ({ highlight, type, children }) => {
@@ -60,10 +70,10 @@ const ProductHighlightContextProvider: FC<ProductHighlightContextProviderProps> 
     )
   }
 
-const ProductHighlights = (props: {
-  filter: Filter
-  type: HighlightType
-  children: NonNullable<ReactNode>
+const ProductHighlights: FC<ProductHighlightsProps> = ({
+  filter = defaultFilter,
+  type = 'collection',
+  children,
 }) => {
   const { product, selectedItem } = useProduct() ?? {}
   const selectedSku = selectedItem ?? product?.items?.[0]
@@ -76,22 +86,22 @@ const ProductHighlights = (props: {
   const teasers = seller?.commertialOffer?.teasers ?? []
 
   const highlights = useMemo(() => {
-    const filterHighlight = createFilterHighlight(props.filter)
+    const filterHighlight = createFilterHighlight(filter)
 
-    if (props.type === 'collection') {
+    if (type === 'collection') {
       return clusterHighlights.filter(filterHighlight)
     }
 
-    if (props.type === 'promotion') {
+    if (type === 'promotion') {
       return discountHighlights.filter(filterHighlight)
     }
 
-    if (props.type === 'teaser') {
+    if (type === 'teaser') {
       return teasers.filter(filterHighlight)
     }
 
     return []
-  }, [props.filter, props.type, teasers, clusterHighlights, discountHighlights])
+  }, [filter, type, teasers, clusterHighlights, discountHighlights])
 
   if (!product) {
     return null
@@ -102,27 +112,14 @@ const ProductHighlights = (props: {
       {highlights.map((highlight, index) => (
         <ProductHighlightContextProvider
           key={index}
-          type={props.type}
+          type={type}
           highlight={highlight}
         >
-          {props.children}
+          {children}
         </ProductHighlightContextProvider>
       ))}
     </>
   )
-}
-
-ProductHighlights.propTypes = {
-  filter: PropTypes.object,
-  type: PropTypes.string,
-}
-
-ProductHighlights.defaultProps = {
-  filter: {
-    type: 'hide',
-    highlightNames: [],
-  },
-  type: 'collection',
 }
 
 ProductHighlights.schema = {
