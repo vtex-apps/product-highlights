@@ -4,7 +4,6 @@ import { defineMessages } from 'react-intl'
 import type { ProductTypes } from 'vtex.product-context'
 import { useProduct } from 'vtex.product-context'
 
-import { FILTER_TYPE, QUERY_TYPE } from './constants/EnumTypes'
 import { getSeller } from './modules/seller'
 
 type HighlightType = 'collection' | 'promotion' | 'teaser'
