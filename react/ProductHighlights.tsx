@@ -1,4 +1,4 @@
-import type { FC, ReactNode, PropsWithChildren } from 'react'
+import type { FC, ReactNode } from 'react'
 import React, { useContext, useMemo } from 'react'
 import type { ProductTypes } from 'vtex.product-context'
 import { useProduct } from 'vtex.product-context'
@@ -70,11 +70,12 @@ const ProductHighlightContextProvider: FC<ProductHighlightContextProviderProps> 
     )
   }
 
-const ProductHighlights: FC<ProductHighlightsProps> = ({
+// eslint-disable-next-line react/prop-types
+function ProductHighlights({
   filter = defaultFilter,
   type = 'collection',
   children,
-}) => {
+}: ProductHighlightsProps) {
   const { product, selectedItem } = useProduct() ?? {}
   const selectedSku = selectedItem ?? product?.items?.[0]
   const seller: ProductTypes.Seller | null = selectedSku
