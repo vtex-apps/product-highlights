@@ -7,13 +7,10 @@ import { useProduct } from 'vtex.product-context'
 import { FILTER_TYPE, QUERY_TYPE } from './constants/EnumTypes'
 import { getSeller } from './modules/seller'
 
-type HighlightType =
-  | typeof QUERY_TYPE.collection
-  | typeof QUERY_TYPE.promotion
-  | typeof QUERY_TYPE.teaser
+type HighlightType = 'collection' | 'promotion' | 'teaser'
 
 interface Filter {
-  type: typeof FILTER_TYPE.hide | typeof FILTER_TYPE.show
+  type: 'hide' | 'show'
   highlightNames: string[]
 }
 
@@ -24,7 +21,7 @@ interface ProductHighlightsProps {
 }
 
 const defaultFilter: Filter = {
-  type: FILTER_TYPE.hide,
+  type: 'hide',
   highlightNames: [],
 }
 
@@ -78,7 +75,7 @@ const ProductHighlightContextProvider: FC<ProductHighlightContextProviderProps> 
 // eslint-disable-next-line react/prop-types
 function ProductHighlights({
   filter = defaultFilter,
-  type = QUERY_TYPE.collection,
+  type = 'collection',
   children,
 }: ProductHighlightsProps) {
   const { product, selectedItem } = useProduct() ?? {}
@@ -182,7 +179,7 @@ ProductHighlights.schema = {
         type: {
           title: messages.Type.id,
           type: 'string',
-          enum: [FILTER_TYPE.hide, FILTER_TYPE.show],
+          enum: ['hide', 'show'],
           enumNames: [messages.Hide.id, messages.Show.id],
         },
         highlightNames: {
@@ -201,7 +198,7 @@ ProductHighlights.schema = {
     type: {
       title: 'admin/editor.product-highlights.type',
       type: 'string',
-      enum: [QUERY_TYPE.collection, QUERY_TYPE.promotion, QUERY_TYPE.teaser],
+      enum: ['collection', 'promotion', 'teaser'],
       enumNames: [
         messages.Collection.id,
         messages.Promotion.id,
