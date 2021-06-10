@@ -1,12 +1,13 @@
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
+import type { ProductContext } from 'vtex.product-context'
 import { useProduct } from 'vtex.product-context'
 
 import ProductHighlights from './ProductHighlights'
 import ProductHighlightText from './ProductHighlightText'
 import tankTop from './__fixtures__/tankTop'
 
-const mockUseProduct = useProduct as jest.Mock
+const mockUseProduct = useProduct as jest.Mock<ProductContext>
 
 mockUseProduct.mockImplementation(() => ({ product: tankTop }))
 
@@ -54,7 +55,9 @@ test("render all teasers' highlights", () => {
 
 test('render nothing if wrong type is passed', () => {
   const { container } = render(
-    <ProductHighlights>
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    <ProductHighlights type="">
       <ProductHighlightText message="{highlightName}" />
     </ProductHighlights>
   )

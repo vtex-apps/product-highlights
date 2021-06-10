@@ -57,7 +57,11 @@ test("ProductHighlightText should render nothing if there's no context", () => {
 })
 
 test("ProductHighlightText should render nothing if there's no message", () => {
-  const { container } = render(<ProductHighlightText message="{}" />)
+  const { container } = render(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    <ProductHighlightText />
+  )
 
   expect(container).toBeEmptyDOMElement()
 })
