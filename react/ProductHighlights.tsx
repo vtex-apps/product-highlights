@@ -51,7 +51,7 @@ function createFilterHighlight(filter: Filter) {
 
 const ProductHighlightContext = React.createContext<
   ProductHighlightContextProviderProps | undefined
->(undefined)
+>()
 
 const ProductHighlightContextProvider: FC<ProductHighlightContextProviderProps> =
   ({ highlight, type, children }) => {
