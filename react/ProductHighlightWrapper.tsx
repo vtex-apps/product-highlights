@@ -1,5 +1,4 @@
-import type { FC, ReactNode } from 'react'
-import React from 'react'
+import React, { FC, ReactNode } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 
 import { useHighlight } from './ProductHighlights'

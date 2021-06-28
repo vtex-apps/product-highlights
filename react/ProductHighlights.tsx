@@ -1,17 +1,9 @@
-import type { FC, ReactNode } from 'react'
-import React, { useContext, useMemo } from 'react'
-import { defineMessages } from 'react-intl'
-import type { ProductTypes } from 'vtex.product-context'
-import { useProduct } from 'vtex.product-context'
+import React, { FC, useContext, ReactNode, useMemo } from 'react'
+import { useProduct, ProductTypes } from 'vtex.product-context'
 
 import { getSeller } from './modules/seller'
 
 type HighlightType = 'collection' | 'promotion' | 'teaser'
-
-interface Filter {
-  type: 'hide' | 'show'
-  highlightNames: string[]
-}
 
 interface ProductHighlightsProps {
   filter?: Filter
@@ -19,19 +11,14 @@ interface ProductHighlightsProps {
   children: NonNullable<ReactNode>
 }
 
+interface Filter {
+  type: 'hide' | 'show'
+  highlightNames: string[]
+}
+
 const defaultFilter: Filter = {
   type: 'hide',
   highlightNames: [],
-}
-
-interface Highlight {
-  id?: string
-  name: string
-}
-
-interface ProductHighlightContextProviderProps {
-  highlight: Highlight
-  type: HighlightType
 }
 
 function createFilterHighlight(filter: Filter) {
@@ -49,33 +36,11 @@ function createFilterHighlight(filter: Filter) {
   }
 }
 
-const ProductHighlightContext = React.createContext<
-  ProductHighlightContextProviderProps | undefined
->()
-
-const ProductHighlightContextProvider: FC<ProductHighlightContextProviderProps> =
-  ({ highlight, type, children }) => {
-    const contextValue = useMemo(
-      () => ({
-        highlight,
-        type,
-      }),
-      [highlight, type]
-    )
-
-    return (
-      <ProductHighlightContext.Provider value={contextValue}>
-        {children}
-      </ProductHighlightContext.Provider>
-    )
-  }
-
-// eslint-disable-next-line react/prop-types
-function ProductHighlights({
+const ProductHighlights: FC<ProductHighlightsProps> = ({
   filter = defaultFilter,
   type = 'collection',
   children,
-}: ProductHighlightsProps) {
+}) => {
   const { product, selectedItem } = useProduct() ?? {}
   const selectedSku = selectedItem ?? product?.items?.[0]
   const seller: ProductTypes.Seller | null = selectedSku
@@ -123,87 +88,38 @@ function ProductHighlights({
   )
 }
 
-const messages = defineMessages({
-  Filter: {
-    defaultMessage: '',
-    id: 'admin/editor.product-highlights.filter',
-  },
-  QueryType: {
-    defaultMessage: '',
-    id: 'admin/editor.product-highlights.type',
-  },
-  Collection: {
-    defaultMessage: '',
-    id: 'admin/editor.product-highlights.type.collection',
-  },
-  Promotion: {
-    defaultMessage: '',
-    id: 'admin/editor.product-highlights.type.promotion',
-  },
-  Teaser: {
-    defaultMessage: '',
-    id: 'admin/editor.product-highlights.type.teaser',
-  },
-  Type: {
-    defaultMessage: '',
-    id: 'admin/editor.product-highlights.filter.type',
-  },
-  Hide: {
-    defaultMessage: '',
-    id: 'admin/editor.product-highlights.filter.type.hide',
-  },
-  Show: {
-    defaultMessage: '',
-    id: 'admin/editor.product-highlights.filter.type.show',
-  },
-  HighlightNames: {
-    defaultMessage: '',
-    id: 'admin/editor.product-highlights.filter.highlight-names',
-  },
-  HighlightName: {
-    defaultMessage: '',
-    id: 'admin/editor.product-highlights.filter.highlight-names.item',
-  },
-})
+interface Highlight {
+  id?: string
+  name: string
+}
 
-ProductHighlights.schema = {
-  title: 'Product Highlights',
-  type: 'object',
-  properties: {
-    filter: {
-      title: messages.Filter.id,
-      type: 'object',
-      properties: {
-        type: {
-          title: messages.Type.id,
-          type: 'string',
-          enum: ['hide', 'show'],
-          enumNames: [messages.Hide.id, messages.Show.id],
-        },
-        highlightNames: {
-          title: messages.HighlightNames.id,
-          type: 'array',
-          minItems: 0,
-          maxItems: 5,
-          items: {
-            title: messages.HighlightName.id,
-            type: 'string',
-            default: '',
-          },
-        },
-      },
-    },
-    type: {
-      title: 'admin/editor.product-highlights.type',
-      type: 'string',
-      enum: ['collection', 'promotion', 'teaser'],
-      enumNames: [
-        messages.Collection.id,
-        messages.Promotion.id,
-        messages.Teaser.id,
-      ],
-    },
-  },
+const ProductHighlightContext = React.createContext<
+  ProductHighlightContextProviderProps | undefined
+>(undefined)
+
+interface ProductHighlightContextProviderProps {
+  highlight: Highlight
+  type: HighlightType
+}
+
+const ProductHighlightContextProvider: FC<ProductHighlightContextProviderProps> = ({
+  highlight,
+  type,
+  children,
+}) => {
+  const contextValue = useMemo(
+    () => ({
+      highlight,
+      type,
+    }),
+    [highlight, type]
+  )
+
+  return (
+    <ProductHighlightContext.Provider value={contextValue}>
+      {children}
+    </ProductHighlightContext.Provider>
+  )
 }
 
 export const useHighlight = () => {

@@ -1,5 +1,4 @@
-import type { FC, ReactNode } from 'react'
-import React, { useMemo } from 'react'
+import React, { FC, useMemo, ReactNode } from 'react'
 import { IOMessageWithMarkers, formatIOMessage } from 'vtex.native-types'
 import { useCssHandles } from 'vtex.css-handles'
 import { useIntl } from 'react-intl'

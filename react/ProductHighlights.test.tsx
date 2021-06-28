@@ -1,7 +1,6 @@
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
-import type { ProductContext } from 'vtex.product-context'
-import { useProduct } from 'vtex.product-context'
+import { useProduct, ProductContext } from 'vtex.product-context'
 
 import ProductHighlights from './ProductHighlights'
 import ProductHighlightText from './ProductHighlightText'

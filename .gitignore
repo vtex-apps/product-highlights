@@ -38,4 +38,3 @@ build
 lerna-debug.log
 yarn-error.log
 *.orig
-package-lock.json
