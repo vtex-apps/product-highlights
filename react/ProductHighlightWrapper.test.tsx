@@ -1,12 +1,12 @@
 import React from 'react'
 import { render } from '@vtex/test-tools/react'
-import { useProduct, ProductContext } from 'vtex.product-context'
+import { useProduct } from 'vtex.product-context'
 
 import ProductHighlights from './ProductHighlights'
 import ProductHighlightWrapper from './ProductHighlightWrapper'
 import tankTop from './__fixtures__/tankTop'
 
-const mockUseProduct = useProduct as jest.Mock<ProductContext>
+const mockUseProduct = useProduct as jest.Mock
 
 mockUseProduct.mockImplementation(() => ({ product: tankTop }))
 
