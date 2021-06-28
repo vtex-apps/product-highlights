@@ -49,9 +49,8 @@ function createFilterHighlight(filter: Filter) {
   }
 }
 
-const ProductHighlightContext = React.createContext<
-  ProductHighlightContextProviderProps | undefined
->()
+const ProductHighlightContext =
+  React.createContext<ProductHighlightContextProviderProps | null>(null)
 
 const ProductHighlightContextProvider: FC<ProductHighlightContextProviderProps> =
   ({ highlight, type, children }) => {
@@ -70,7 +69,6 @@ const ProductHighlightContextProvider: FC<ProductHighlightContextProviderProps> 
     )
   }
 
-// eslint-disable-next-line react/prop-types
 function ProductHighlights({
   filter = defaultFilter,
   type = 'collection',
@@ -82,11 +80,11 @@ function ProductHighlights({
     ? getSeller(selectedSku)
     : null
 
-  const clusterHighlights = product?.clusterHighlights ?? []
-  const discountHighlights = seller?.commertialOffer?.discountHighlights ?? []
-  const teasers = seller?.commertialOffer?.teasers ?? []
-
   const highlights = useMemo(() => {
+    const clusterHighlights = product?.clusterHighlights ?? []
+    const discountHighlights = seller?.commertialOffer?.discountHighlights ?? []
+    const teasers = seller?.commertialOffer?.teasers ?? []
+
     const filterHighlight = createFilterHighlight(filter)
 
     if (type === 'collection') {
@@ -102,7 +100,13 @@ function ProductHighlights({
     }
 
     return []
-  }, [filter, type, teasers, clusterHighlights, discountHighlights])
+  }, [
+    filter,
+    product?.clusterHighlights,
+    seller?.commertialOffer?.discountHighlights,
+    seller?.commertialOffer?.teasers,
+    type,
+  ])
 
   if (!product) {
     return null
