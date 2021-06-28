@@ -1,6 +1,6 @@
 {
   "name": "product-highlights",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "scripts": {
     "test": "vtex-test-tools test"
   },
