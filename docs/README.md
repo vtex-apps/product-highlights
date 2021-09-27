@@ -73,11 +73,11 @@ According to your desire, copy one of the examples stated below and paste it in 
 ```jsonc
 {
   "vtex.product-highlights@2.x:product-highlights": {
-    "children": ["product-highlights-wrapper"]
+    "children": ["product-highlight-wrapper"]
   },
-  "product-highlights-wrapper": {
+  "product-highlight-wrapper": {
     "children": [
-      "icon-star", // You can add anything inside a product-highlights-wrapper
+      "icon-star", // You can add anything inside a product-highlight-wrapper
       "product-highlight-text"
     ]
   },
