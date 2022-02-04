@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "product-highlights",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "title": "Product Highlights",
   "description": "",
   "builders": {
