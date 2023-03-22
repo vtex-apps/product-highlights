@@ -1,0 +1,12 @@
+{
+  "admin/editor.product-highlights.filter": "Filter",
+  "admin/editor.product-highlights.type": "Abfragetyp",
+  "admin/editor.product-highlights.type.collection": "Kollektion",
+  "admin/editor.product-highlights.type.promotion": "Beförderung",
+  "admin/editor.product-highlights.type.teaser": "Teaser",
+  "admin/editor.product-highlights.filter.type": "Art",
+  "admin/editor.product-highlights.filter.type.hide": "Ausblenden",
+  "admin/editor.product-highlights.filter.type.show": "Anzeigen",
+  "admin/editor.product-highlights.filter.highlight-names": "Markieren Sie Namen",
+  "admin/editor.product-highlights.filter.highlight-names.item": "Namen hervorheben"
+}
