@@ -14,7 +14,7 @@ The Product Highlights app provides blocks to display highlight badges on produc
 
 _In the image above, the product has a `Top Seller` highlight._
 
-## Configuring Product Highlights
+## Configuration
 
 ### Step 1 - Adding the Product Highlights app to your theme dependencies
 
@@ -124,8 +124,7 @@ Copy one of the examples stated below and paste it into your desired theme templ
 | `type`    | `enum`   | The desired type of product highlight to be displayed. Possible values are: `collection`, `promotion`, and `teaser`. `collection` highlights the product's collection, so it must be used with the [Collection Highlight](https://help.vtex.com/en/tutorial/collection-highlight-control--1tGdb2ndjqy6yWsk2YwKMu?locale=en) feature. `promotion` and `teaser` should be used when the product is configured with a [promotion that includes highlights](https://help.vtex.com/en/tutorial/configuring-promotions-with-a-highlightflag--tutorials_2295?locale=en). It can be used even if the promotion does not have any restrictions. On the other hand, the `teaser` must only be used when the promotion has restrictions.   ⚠️* Note that nominal promotions will only be displayed in the cart, not on the shelf or product page.* | `collection`  |
 | `filter`  | `object` | Defines which highlights should and should not be displayed by the block.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `undefined`   |
 
-> ⚠️ warning  
-> Technically, the `collection` highlight maps to the [`clusterHighlights`](https://github.com/vtex-apps/search-graphql/blob/ea1d7e244e6b00b58e5aa4272fbb16987c483468/graphql/types/Product.graphql#L29)  property; the `promotion` highlight maps to the [`discountHighlights`](https://github.com/vtex-apps/search-graphql/blob/ea1d7e244e6b00b58e5aa4272fbb16987c483468/graphql/types/Product.graphql#L283) property; and the `teaser` highlight maps to the [`teasers`](https://github.com/vtex-apps/search-graphql/blob/ea1d7e244e6b00b58e5aa4272fbb16987c483468/graphql/types/Product.graphql#L284) property.
+>⚠️ Technically, the `collection` highlight maps to the [`clusterHighlights`](https://github.com/vtex-apps/search-graphql/blob/ea1d7e244e6b00b58e5aa4272fbb16987c483468/graphql/types/Product.graphql#L29)  property; the `promotion` highlight maps to the [`discountHighlights`](https://github.com/vtex-apps/search-graphql/blob/ea1d7e244e6b00b58e5aa4272fbb16987c483468/graphql/types/Product.graphql#L283) property; and the `teaser` highlight maps to the [`teasers`](https://github.com/vtex-apps/search-graphql/blob/ea1d7e244e6b00b58e5aa4272fbb16987c483468/graphql/types/Product.graphql#L284) property.
 
 - **`filter` object:**
 
