@@ -36,7 +36,7 @@ interface ProductHighlightContextProviderProps {
 
 function createFilterHighlight(filter: Filter) {
   return function filterHighlight(highlight: Highlight) {
-    const hasHighlight = filter.highlightNames.includes(highlight.name)
+    const hasHighlight = filter.highlightNames?.includes(highlight.name)
 
     if (
       (filter.type === 'hide' && hasHighlight) ||
