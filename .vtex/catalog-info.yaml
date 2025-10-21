@@ -1,0 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: product-highlights
+  description: The Product Highlights app provides blocks to display highlight
+    badges on products according to the collection or promotion they are linked
+    to.
+  tags:
+    - typescript
+  annotations:
+    vtex.com/janus-acronym: ""
+    vtex.com/o11y-os-index: ""
+    grafana/dashboard-selector: ""
+    github.com/project-slug: vtex-apps/product-highlights
+    vtex.com/platform-flow-id: ""
+    backstage.io/techdocs-ref: dir:../
+    vtex.com/application-id: TIBNO47O
+spec:
+  lifecycle: stable
+  owner: te-0013
+  type: frontend-ui
+  dependsOn: []
